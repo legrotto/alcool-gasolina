@@ -41,6 +41,7 @@ E ai, o que compensa mais utilizar, álcool ou gasolina?
 
 ## Precisa de ajuda?
 Se você precisar de uma ajudinha com o flutter, esses links podem ser utéis:
+
 	1. Escrevendo seu primeiro app em Flutter: <b>https://flutter.dev/docs/get-started/codelab</b>
 	2. Alguns exemplos em Flutter: <b>https://flutter.dev/docs/cookbook</b>
 	3. Documentação: <b>https://flutter.dev/docs</b>
