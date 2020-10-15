@@ -39,11 +39,20 @@ Após o login, você será direcionado para o Menu Principal do aplicativo, agor
 
 E ai, o que compensa mais utilizar, álcool ou gasolina?
 
-## Ajuda!
+## Precisa de ajuda?
 Se você precisar de uma ajudinha com o flutter, esses links podem ser utéis:
-	* Escrevendo seu primeiro app em Flutter: <b>https://flutter.dev/docs/get-started/codelab</b>
-	* Alguns exemplos em Flutter: <b>https://flutter.dev/docs/cookbook</b>
-	* Documentação: <b>https://flutter.dev/docs</b>
+    * Escrevendo seu primeiro app em flutter: <b>https://flutter.dev/docs/get-started/codelab</b>
+    * Alguns exemplos em Flutter: <b>https://flutter.dev/docs/cookbook</b>
+    * Documentação: <b>https://flutter.dev/docs</b>
+
+## Deu erro?
+Por um certo momento meu projeto parou de funcionar, sem que tivessem sido feitas alterações no código, ou de ambiente, consegui resolver executando os seguintes passos, sucessivamente:
+   1. flutter upgrade
+   2. flutter channel beta
+   3. flutter upgrade
+   4. flutter config --enable-web
+
+
 	
 
   
