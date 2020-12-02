@@ -22,10 +22,13 @@ class _GasPageState extends State<GasPage> {
 
     listen?.cancel();
     listen = db.collection("combustiveis").snapshots().listen((res) {
-      setState(() {
-        combustiveis =
-            res.docs.map((e) => Combustiveis.fromMap(e.data(), e.id)).toList();
-      });
+      if (this.mounted) {
+        setState(() {
+          combustiveis = res.docs
+              .map((e) => Combustiveis.fromMap(e.data(), e.id))
+              .toList();
+        });
+      }
     });
   }
 
