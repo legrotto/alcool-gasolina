@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:project01_combustivel/widgets/text-form.widget.dart';
 import 'package:project01_combustivel/widgets/logo.widget.dart';
@@ -13,6 +15,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var db = FirebaseFirestore.instance;
+
   var formKey = GlobalKey<FormState>();
   var controllerEmail = new TextEditingController();
   var controllerSenha = new TextEditingController();
@@ -98,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: SizedBox(
                             child: Icon(
                               Icons.lock_open,
-                              color: Colors.deepOrange.withOpacity(0.8),
+                              color: Colors.deepPurple.withOpacity(0.8),
                             ),
                             height: 28,
                             width: 28,
@@ -106,14 +110,26 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ],
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState.validate()) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MenuPage(),
-                          ),
-                        );
+                        QuerySnapshot usr = await db
+                            .collection("usuarios")
+                            .where('email', isEqualTo: controllerEmail.text)
+                            .where('senha', isEqualTo: controllerSenha.text)
+                            .get();
+
+                        if (usr.docs.isEmpty) {
+                          showErrorFlushbar(context);
+                          controllerEmail.clear();
+                          controllerSenha.clear();
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MenuPage(),
+                            ),
+                          );
+                        }
                       }
                     },
                   ),
@@ -150,5 +166,19 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void showErrorFlushbar(BuildContext context) {
+    Flushbar(
+      title: 'Usuário não encontrado',
+      message: 'E-mail ou senha inválidos. Verifique!',
+      icon: Icon(
+        Icons.account_circle,
+        size: 28,
+        color: Colors.redAccent,
+      ),
+      leftBarIndicatorColor: Colors.red.shade300,
+      duration: Duration(seconds: 3),
+    )..show(context);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:project01_combustivel/widgets/text-form.widget.dart';
@@ -5,8 +6,11 @@ import 'package:project01_combustivel/widgets/submit-button.widget.dart';
 import 'package:project01_combustivel/widgets/email-form.widget.dart';
 
 class SignupPage extends StatelessWidget {
+  var db = FirebaseFirestore.instance;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
+
   var controllerNome = new TextEditingController();
   var controllerEmail = new TextEditingController();
   var controllerSenha = new TextEditingController();
@@ -26,7 +30,7 @@ class SignupPage extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.only(top: 10, left: 40, right: 40),
-        color: Colors.deepOrange,
+        color: Colors.deepPurple,
         child: Form(
           key: formKey,
           child: Column(
@@ -63,6 +67,13 @@ class SignupPage extends StatelessWidget {
                 text: "Cadastrar",
                 func: () {
                   if (formKey.currentState.validate()) {
+                    db.collection("usuarios").add({
+                      "nome": controllerNome.text,
+                      "email": controllerEmail.text,
+                      "senha": controllerSenha.text,
+                      "status": true
+                    });
+                    
                     showInfoFlushbar(context);
                     controllerEmail.clear();
                     controllerNome.clear();

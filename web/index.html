@@ -18,6 +18,30 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDVXEGtMuJpuwjuXAXjAHUQwT5pi74MePU",
+    authDomain: "app-alcool-gasolina.firebaseapp.com",
+    databaseURL: "https://app-alcool-gasolina.firebaseio.com",
+    projectId: "app-alcool-gasolina",
+    storageBucket: "app-alcool-gasolina.appspot.com",
+    messagingSenderId: "236707605303",
+    appId: "1:236707605303:web:00b57906784e7ab56888b2"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:project01_combustivel/widgets/logo.widget.dart';
@@ -10,7 +11,9 @@ class CalculatePage extends StatefulWidget {
 }
 
 class _CalculatePageState extends State<CalculatePage> {
-  Color _color = Colors.deepOrange;
+  var db = FirebaseFirestore.instance;
+
+  Color _color = Colors.deepPurple;
   var _gasController = new MoneyMaskedTextController();
   var _alcoolController = new MoneyMaskedTextController();
   var _busy = false;
@@ -54,6 +57,44 @@ class _CalculatePageState extends State<CalculatePage> {
         ));
   }
 
+  updateAlcool() async {
+    QuerySnapshot usr = await db
+        .collection("combustiveis")
+        .where('nome', isEqualTo: "Álcool")
+        .get();
+
+    if (usr.docs.isNotEmpty) {
+      await db
+          .collection("combustiveis")
+          .doc(usr.docs.first.id)
+          .update({"preco": _alcoolController.text});
+    } else {
+      db.collection("combustiveis").add({
+        "nome": "Álcool",
+        "preco": _alcoolController.text,
+      });
+    }
+  }
+
+  updateGasolina() async {
+    QuerySnapshot usr = await db
+        .collection("combustiveis")
+        .where('nome', isEqualTo: "Gasolina")
+        .get();
+
+    if (usr.docs.isNotEmpty) {
+      await db
+          .collection("combustiveis")
+          .doc(usr.docs.first.id)
+          .update({"preco": _gasController.text});
+    } else {
+      db.collection("combustiveis").add({
+        "nome": "Gasolina",
+        "preco": _alcoolController.text,
+      });
+    }
+  }
+
   Future calculate() {
     double alc = double.parse(
             _alcoolController.text.replaceAll(new RegExp(r'[,.]'), '')) /
@@ -64,16 +105,31 @@ class _CalculatePageState extends State<CalculatePage> {
     double res = alc / gas;
 
     setState(() {
-      _color = Colors.deepOrangeAccent;
+      _color = Colors.deepPurpleAccent;
       _completed = false;
       _busy = true;
     });
 
     return new Future.delayed(const Duration(seconds: 1), () {
+      updateAlcool();
+      updateGasolina();
+
       setState(() {
         if (res >= 0.7) {
+          db.collection("calculos").add({
+            "combustivel": "gasolina",
+            "preco": _gasController.text,
+            "data": DateTime.now().toString(),
+          });
+
           _resultText = "Compensa utilizar Gasolina!";
         } else {
+          db.collection("calculos").add({
+            "combustivel": "alcool",
+            "preco": _gasController.text,
+            "data": DateTime.now().toString(),
+          });
+
           _resultText = "Compensa utilizar Álcool!";
         }
 
@@ -85,7 +141,7 @@ class _CalculatePageState extends State<CalculatePage> {
 
   reset() {
     setState(() {
-      _color = Colors.deepOrange;
+      _color = Colors.deepPurple;
       _alcoolController = new MoneyMaskedTextController();
       _gasController = new MoneyMaskedTextController();
       _completed = false;

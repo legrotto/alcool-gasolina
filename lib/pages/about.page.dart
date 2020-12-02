@@ -96,7 +96,7 @@ class _AboutPageState extends State<AboutPage> {
               height: 4,
             ),
             Text(
-              "1.0.3",
+              "1.0.4",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

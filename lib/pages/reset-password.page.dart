@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:project01_combustivel/widgets/submit-button.widget.dart';
@@ -9,6 +10,8 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  var db = FirebaseFirestore.instance;
+
   var formKey = GlobalKey<FormState>();
   var controller = new TextEditingController();
 
@@ -26,7 +29,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       ),
       body: Container(
         padding: EdgeInsets.only(top: 40, left: 40, right: 40),
-        color: Colors.deepOrange,
+        color: Colors.deepPurple,
         child: Form(
           key: formKey,
           child: Column(
@@ -85,10 +88,24 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         SubmitButtonWidget(
                           text: "Enviar",
-                          func: () {
+                          func: () async {
                             if (formKey.currentState.validate()) {
-                              showInfoFlushbar(context);
-                              controller.clear();
+                              QuerySnapshot usr = await db
+                                  .collection("usuarios")
+                                  .where('email', isEqualTo: controller.text)
+                                  .get();
+
+                              if (usr.docs.isEmpty) {
+                                showErrorFlushbar(context);
+                                controller.clear();
+                              } else {
+                                await db.collection("usuarios").doc(usr.docs.first.id).update({
+                                  "senha": "123456",
+                                });
+
+                                showInfoFlushbar(context);
+                                controller.clear();
+                              }
                             }
                           },
                         ),
@@ -110,13 +127,27 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   void showInfoFlushbar(BuildContext context) async {
     Flushbar(
       title: 'E-mail enviado com sucesso!',
-      message: 'Verifique sua caixa de entrada e recupere sua senha.',
+      message: 'Verifique sua caixa de entrada e utilize sua nova senha.',
       icon: Icon(
         Icons.email,
         size: 28,
         color: Colors.lightBlue,
       ),
       leftBarIndicatorColor: Colors.blue.shade300,
+      duration: Duration(seconds: 3),
+    )..show(context);
+  }
+
+  void showErrorFlushbar(BuildContext context) {
+    Flushbar(
+      title: 'Não Encontrado',
+      message: 'Usuário não encontrado',
+      icon: Icon(
+        Icons.account_circle,
+        size: 28,
+        color: Colors.redAccent,
+      ),
+      leftBarIndicatorColor: Colors.red.shade300,
       duration: Duration(seconds: 3),
     )..show(context);
   }

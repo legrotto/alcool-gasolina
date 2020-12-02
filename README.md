@@ -2,7 +2,7 @@
 Projeto desenvolvido em Flutter para a disciplina de Programação para Dispositivos Móveis, no curso de Graduação de Análise e Desenvolvimento de Sistemas, da Fatec Ribeirão Preto.
 
 ## O que é o aplicativo Álcool ou Gasolina?
-O aplicativo foi desenvolvido com dois objetivos, um deles é a conclusão do primeiro projeto prático da discilplina e o outro é para melhorar meus conhecimentos nessa tecnologia que me chamou tanto a atenção.
+O aplicativo foi desenvolvido com dois objetivos, um deles é a conclusão do projeto prático da discilplina e o outro é para melhorar meus conhecimentos nessa tecnologia que me chamou tanto a atenção.
 
 A motivação inicial para a construção desse aplicativo foi que a partir do início do semestre, quando me interessei pela tecnologia, comecei a fazer alguns cursos extracurriculares, e foi através de um deles que esse aplicativo surgiu. 
 
@@ -32,8 +32,7 @@ Pronto, seu projeto estará executando no endereço: <b>http://localhost:54233/#
 ## Como utilizar o aplicativo?
 A tela inicial do aplicativo é a tela de login, então entre com um usuário e senha.
 
-O objetivo é que posteriormente o software seja evoluído para que os usuários sejam previamente cadastrados, mas por ora podem ser utilizados e-mails e senhas fictícios.
-Para atingir esse próximo objetivo, as interfaces para os recursos de cadastrar um novo usuário e recuperar a senha de um usuário pré-existente já estão prontas.
+Se você estiver utilizando o aplicativo pela primeira vez, pode cadastrar seu usuário. Os dados ficarão persistidos no Firebase Cloud Firestore.
 
 Após o login, você será direcionado para o Menu Principal do aplicativo, e pode navegar por ele.
 
@@ -41,10 +40,9 @@ E ai, o que compensa mais utilizar, álcool ou gasolina?
 
 ## Precisa de ajuda?
 Se você precisar de uma ajudinha com o flutter, esses links podem ser utéis:
-<<<<<<< HEAD
-    * Escrevendo seu primeiro app em flutter: <b>https://flutter.dev/docs/get-started/codelab</b>
-    * Alguns exemplos em Flutter: <b>https://flutter.dev/docs/cookbook</b>
-    * Documentação: <b>https://flutter.dev/docs</b>
+* Escrevendo seu primeiro app em flutter: <b>https://flutter.dev/docs/get-started/codelab</b>
+* Alguns exemplos em Flutter: <b>https://flutter.dev/docs/cookbook</b>
+* Documentação: <b>https://flutter.dev/docs</b>
 
 ## Deu erro?
 Por um certo momento meu projeto parou de funcionar, sem que tivessem sido feitas alterações no código, ou de ambiente, consegui resolver executando os seguintes passos, sucessivamente:
@@ -52,14 +50,4 @@ Por um certo momento meu projeto parou de funcionar, sem que tivessem sido feita
    2. flutter channel beta
    3. flutter upgrade
    4. flutter config --enable-web
-
-
-=======
-	1. Escrevendo seu primeiro app em Flutter: <b>https://flutter.dev/docs/get-started/codelab</b>
-	2. Alguns exemplos em Flutter: <b>https://flutter.dev/docs/cookbook</b>
-	3 . Documentação: <b>https://flutter.dev/docs</b>
->>>>>>> 85fb41c949003df6286af9a0de93c3e10b8db55d
 	
-
-  
-
