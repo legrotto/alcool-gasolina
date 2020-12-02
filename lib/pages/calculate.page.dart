@@ -126,7 +126,7 @@ class _CalculatePageState extends State<CalculatePage> {
         } else {
           db.collection("calculos").add({
             "combustivel": "alcool",
-            "preco": _gasController.text,
+            "preco": _alcoolController.text,
             "data": DateTime.now().toString(),
           });
 
