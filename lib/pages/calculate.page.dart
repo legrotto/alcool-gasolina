@@ -90,7 +90,7 @@ class _CalculatePageState extends State<CalculatePage> {
     } else {
       db.collection("combustiveis").add({
         "nome": "Gasolina",
-        "preco": _alcoolController.text,
+        "preco": _gasController.text,
       });
     }
   }
